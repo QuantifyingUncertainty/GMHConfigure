@@ -23,23 +23,13 @@ catch
     exit(1)
 end
 
-###Trigger an explicit build the Sundials package
+###Build all packages that require it
 try
-    Pkg.build("Sundials")
+    Pkg.build()
 catch
     println("================================================================")
-    println("Error during Pkg.build(\"Sundials\")... aborting")
-    println("Please start julia and run Pkg.build(\"Sundials\") manually to fix")
-    exit(1)
-end
-
-###Trigger an explicit build the PyCall package
-try
-    Pkg.build("PyCall")
-catch
-    println("================================================================")
-    println("Error during Pkg.build(\"PyCall\")... aborting")
-    println("Please start julia and run Pkg.build(\"PyCall\") manually to fix")
+    println("Error during Pkg.build()... aborting")
+    println("Please start julia and run Pkg.build() manually to fix")
     exit(1)
 end
 

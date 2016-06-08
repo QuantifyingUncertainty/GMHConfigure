@@ -13,7 +13,7 @@ sudo apt-get -y install hdf5-tools
 sudo apt-get -y install julia
 
 #Run a julia script that will install all julia's internal packages
-julia -e 'include("amiconfig-julia.jl")'
+julia -e 'include("julia-config.jl")'
 
 #Contintue with finishing off the installation if all julia packages installed successfully
 if [ $? -eq 1 ]; then

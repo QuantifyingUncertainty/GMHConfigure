@@ -36,6 +36,7 @@ select yn in "Yes" "No"; do
 
 	    echo "This instance is now ready to be published as a community AMI"
             echo "Please refer to the GMH documentation for further details"
+            exit
             ;;
         No )
             echo "No modifications have been made to this instance."

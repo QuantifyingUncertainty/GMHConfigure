@@ -12,32 +12,11 @@ echo "Good examples of secure passwords consist of 3 unrelated words"
 echo "For example: apple-spring-saxophone"
 echo " "
 
-while [ true ]; do
-    read -sp 'Please type your password and press enter: ' PASSVAR1
-    echo " "
-    read -sp 'Please confirm by re-typing: ' PASSVAR2
-    echo " "
-    if [ $PASSVAR1 != $PASSVAR2 ]; then
-        echo "Passwords do not match. Please try again"
-        continue
-    fi
-    if [ ${#PASSVAR1} -lt 8 ]; then
-        echo "Your chosen password is too short."
-        echo "Please select a password of at least 8 characters."
-        continue
-    fi
-    break
-done
-
-#create the password hash
-PASSVARHASH=$( echo $PASSVAR1 | sha256sum | awk '{print $1}' )
-
 #copy the jupyter notebook config file and store the hashed password into it
 SCRIPTDIR=$( dirname $0 )
 JUPTEMPLATE=$SCRIPTDIR/jupyter_notebook_config_template.py
-JUPCONFIG=~/.jupyter/juptyer_notebook_config.py
-
-sed "s/PASSWORDHASH/$PASSVARHASH/" <$JUPTEMPLATE >$JUPCONFIG
+JUPCONFIG=$HOME/.jupyter/jupyter_notebook_config.py
+sed "s/PASSWORDHASH/$(ipython -c 'from notebook.auth import passwd; print(passwd())')/" <$JUPTEMPLATE >$JUPCONFIG
 
 if [ -e $JUPCONFIG ]; then
     echo "Jupyter configuration file successfully created"
@@ -47,8 +26,8 @@ else
     exit 1
 fi
 
-KEYFILE=~/.certificates/jupyterkey.pem
-CERTFILE=~/.certificates/jupytercert.pem
+KEYFILE=$HOME/.certificates/jupyterkey.pem
+CERTFILE=$HOME/.certificates/jupytercert.pem
 
 echo "Creating an SSL certificate for browser access"
 echo "Accept the default values by pressing [ENTER]"
@@ -73,10 +52,6 @@ echo " "
 echo "===================================="
 echo "++++++++++++++++++++++++++++++++++++"
 echo "===================================="
-
-    
-
-    
 
 
 

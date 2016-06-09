@@ -19,7 +19,7 @@ sudo apt-get -y install hdf5-tools
 sudo apt-get -y install julia
 
 #Run a julia script that will install all julia's internal packages
-SCRIPTDIR=$HOME/$( dirname $0 )
+SCRIPTDIR=$( dirname $0 )
 JULIACOMMAND="include(\"$SCRIPTDIR/julia-config.jl\")"
 echo "Running julia with configuration script $JULIACOMMAND"
 julia -e $JULIACOMMAND

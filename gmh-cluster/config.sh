@@ -7,7 +7,7 @@ echo "passwordless connections between the master (the machine you are running t
 echo "and the slaves in the cluster."
 echo " "
 echo "In preparation, you will need to have created AWS Security Credentials. The script"
-echo "will prompt during installation to input your AWS Access Key and Secret Access Key."
+echo "will prompt during installation to input your AWS Access Key ID and Secret Access Key ID."
 echo "If you are unsure please see the GMHConfigure and AWS documentation for further information."
 
 echo "Do you wish to continue?"
@@ -16,10 +16,17 @@ select yn in "Yes" "No"; do
         Yes )
             
             #Install the AWS Command-Line Interface tools
-            sudo apt-get -y update
-            sudo apt-get -y install awscli
+            pip install awscli
             
+            aws configure set region eu-west-1
             
+            #Configure the AWS CLI
+            echo "Please add your AWS Security Credentials"
+            echo "Use your Access Key ID and Secret Access Key ID previously downloaded from AWS"
+            echo "Make sure that the region corresponds to the region in which you launched this machine" 
+            echo "If this is the default region (eu-west-1) you can accept it by pressing [ENTER]"
+            echo "You may leave Default Output Format empty and accept it with [ENTER]"
+            aws configure
             ;;
         No ) 
             exit

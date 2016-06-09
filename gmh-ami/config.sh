@@ -19,11 +19,14 @@ sudo apt-get -y install hdf5-tools
 sudo apt-get -y install julia
 
 #Run a julia script that will install all julia's internal packages
-julia -e 'include("julia-config.jl")'
+SCRIPTDIR=$HOME/$( dirname $0 )
+JULIACOMMAND="include(\"$SCRIPTDIR/julia-config.jl\")"
+echo "Running julia with configuration script $JULIACOMMAND"
+julia -e $JULIACOMMAND
 
 #Contintue with finishing off the installation if all julia packages installed successfully
 if [ $? -eq 1 ]; then
-    echo 'The Julia configuration script for a GeneralizedMetropolisHastings AMI exited with errors' 1>&2
+    echo 'The Julia configuration script for the GeneralizedMetropolisHastings AMI exited with errors' 1>&2
     echo 'The script has only been tested on a Ubuntu Server 14.04LTS AMI with Julia v0.4.x' 1>&2
 else
     #Julia finished installing its internal packages and ran the tests, few things to finish off
@@ -71,6 +74,14 @@ else
     if [ ! -d ~/.certificates ]; then
         mkdir ~/.certificates
     fi
+
+    if [ ! -d ~/.aws ]; then
+	mkdir ~/.aws
+    fi
+
+    echo "====================================================="
+    echo "Successfully completed $SCRIPTDIR/config.sh"
+    echo "====================================================="
     
 fi
 

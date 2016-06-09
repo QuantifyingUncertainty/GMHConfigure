@@ -4,12 +4,18 @@
 sudo add-apt-repository -y ppa:staticfloat/juliareleases
 sudo add-apt-repository -y ppa:staticfloat/julia-deps
 
-#Update the repos, and install all required packages
+#Update the repos, install pip and awscli (the Amazon Web Services command-line interface)
+sudo apt-get -y update
+sudo apt-get -y install python-pip
+sudo pip install awscli
+
+#Install packages required by julia
 #build-essential is used to build some of julia's packages
 #hdf5-tools is used for loading and saving julia data files
-sudo apt-get -y update
 sudo apt-get -y install build-essential
 sudo apt-get -y install hdf5-tools
+
+#Install julia itself
 sudo apt-get -y install julia
 
 #Run a julia script that will install all julia's internal packages

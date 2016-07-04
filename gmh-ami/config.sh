@@ -53,7 +53,7 @@ else
     
     #Test if the PATH variable has the Jupyter bin folder on it
     echo "$PATH" | grep -q "$JUPYTERBIN"
-    if [ $? -eq 0 ]; then
+    if [ $? -eq 1 ]; then
         PATHSTRING='PATH="$PATH:'
         PATHSTRING+="$JUPYTERBIN"
         PATHSTRING+=\"

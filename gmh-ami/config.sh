@@ -31,7 +31,7 @@ if [ $? -eq 1 ]; then
 else
     #Julia finished installing its internal packages and ran the tests, few things to finish off
     #Get the julia package directory and test if it exists
-    JULIAPACKDIR=~/.julia
+    JULIAPACKDIR="$HOME/.julia"
     if [ ! -d $JULIAPACKDIR ]; then
         echo "$JULIAPACKDIR directory not found... aborting" 1>&2
         exit 1
@@ -53,11 +53,15 @@ else
     
     #Test if the PATH variable has the Jupyter bin folder on it
     echo "$PATH" | grep -q "$JUPYTERBIN"
-    if [ $? -eq 1 ]; then
-        echo 'PATH="$PATH:/home/ubuntu/.julia/v0.4/Conda/deps/usr/bin"' >> ~/.profile
-        source ~/.profile
+    if [ $? -eq 0 ]; then
+        PATHSTRING='PATH="$PATH:'
+        PATHSTRING+="$JUPYTERBIN"
+        PATHSTRING+=\"
+        echo $PATHSTRING >> "$HOME/.profile"
     fi
     
+    source "$HOME/.profile"
+
     #Test again, if it's not been added to that path, throw an error
     echo "$PATH" | grep -q "$JUPYTERBIN"
     if [ $? -eq 1 ]; then
@@ -67,16 +71,16 @@ else
         echo "Jupyter directory $JUPYTERBIN successfully added to path"
     fi
     
-    if [ ! -d ~/.jupyter ]; then
-        mkdir ~/.jupyter
+    if [ ! -d "$HOME/.jupyter" ]; then
+        mkdir "$HOME/.jupyter"
     fi
     
-    if [ ! -d ~/.certificates ]; then
-        mkdir ~/.certificates
+    if [ ! -d "$HOME/.certificates" ]; then
+        mkdir "$HOME/.certificates"
     fi
 
-    if [ ! -d ~/.aws ]; then
-	mkdir ~/.aws
+    if [ ! -d "$HOME/.aws" ]; then
+	mkdir "$HOME/.aws"
     fi
 
     echo "====================================================="

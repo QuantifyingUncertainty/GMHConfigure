@@ -11,7 +11,7 @@ select yn in "Yes" "No"; do
     case $yn in
         Yes )
             #remove certificates that have been created to access the Jupyter server
-	    echo "Removing SSL certificates..."
+            echo "Removing SSL certificates..."
             rm -i ~/.cerficates/*
 
             #remove Jupyter config files that contain hashed passwords
@@ -23,9 +23,9 @@ select yn in "Yes" "No"; do
             rm -i ~/.aws/*
 
             #remove GIT configuration file
-	    if [ -e ~/.gitconfig ]; then
+            if [ -e ~/.gitconfig ]; then
                 echo "Removing GIT configuration file..."
-		rm -i ~/.gitconfig
+                rm -i ~/.gitconfig
             fi
 
             #remove the history and SSH command keys with which the instance was started
@@ -33,8 +33,11 @@ select yn in "Yes" "No"; do
             sudo find ~/.*history -exec rm -f {} \;
             sudo find /root/.ssh/authorized_keys -exec rm -f {} \;
             sudo find ~/.ssh/authorized_keys -exec rm -f {} \;
+            
+            rm -i ~/.ssh/*.pem
+            rm -i ~/.ssh/config
 
-	    echo "This instance is now ready to be published as a community AMI"
+            echo "This instance is now ready to be published as a community AMI"
             echo "Please refer to the GMH documentation for further details"
             exit
             ;;

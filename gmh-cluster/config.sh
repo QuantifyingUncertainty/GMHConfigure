@@ -14,12 +14,19 @@ echo "Do you wish to continue?"
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
+        
+            echo "Checking if AWSCLI is installed..."
+            which aws
             
-            #Install the AWS Command-Line Interface tools
-            pip install awscli
-            
+            if [ $? -eq 0 ]; then
+                echo "AWSCLI package already installed"
+            else
+                #Install the AWS Command-Line Interface tools
+                pip install awscli
+            fi
+
             aws configure set region eu-west-1
-            
+
             #Configure the AWS CLI
             echo "Please add your AWS Security Credentials"
             echo "Use your Access Key ID and Secret Access Key ID previously downloaded from AWS"
@@ -27,11 +34,34 @@ select yn in "Yes" "No"; do
             echo "If this is the default region (eu-west-1) you can accept it by pressing [ENTER]"
             echo "You may leave Default Output Format empty and accept it with [ENTER]"
             aws configure
+
+            KEYNAME="julia-cluster-access-"
+            KEYNAME+=$(hostname -i)
+
+            KEYFILE="$HOME/.ssh/${KEYNAME}.pem"
+
+            echo "Creating $KEYNAME and adding it to your AWS console"
+            aws ec2 create-key-pair --key-name "$KEYNAME" --query 'KeyMaterial' --output text > $KEYFILE
+            
+            if [ $? -ne 0 ]; then
+                echo "If that key is no longer usable, please delete it via the AWS console and run this script again"
+                echo "Otherwise, your instance is ready to be used as Master Server in the cluster"
+            else
+                chmod 600 $KEYFILE
+            
+                echo "Setting the default IdentityFile to $KEYNAME in .ssh/config"
+                echo "IdentityFile $KEYFILE" > $HOME/.ssh/config
+
+                echo "======================================================"
+                echo "Instance ready to be used as Master Server in cluster."
+                echo "======================================================"
+            fi
+
+            exit
             ;;
-        No ) 
+        No )
             exit
             ;;
     esac
 done
 
-echo "AMI ready to be published as a community AMI."

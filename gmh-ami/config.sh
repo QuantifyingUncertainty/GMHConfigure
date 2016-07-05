@@ -73,14 +73,17 @@ else
     
     if [ ! -d "$HOME/.jupyter" ]; then
         mkdir "$HOME/.jupyter"
+        chmod 700 "$HOME/.jupyter"
     fi
     
     if [ ! -d "$HOME/.certificates" ]; then
         mkdir "$HOME/.certificates"
+        chmod 700 "$HOME/.certificates"
     fi
 
     if [ ! -d "$HOME/.aws" ]; then
 	mkdir "$HOME/.aws"
+        chmod 700 "$HOME/.aws"
     fi
 
     echo "====================================================="

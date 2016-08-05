@@ -25,7 +25,9 @@ end
 
 ###Build all packages that require it
 try
+    ENV["PYTHON"]=""
     Pkg.build()
+    Pkg.build("PyCall")
 catch
     println("================================================================")
     println("Error during Pkg.build()... aborting")
@@ -34,13 +36,11 @@ catch
 end
 
 try
-    ENV["PYTHON"]=""
-    Pkg.build("PyCall")
+    import PyPlot
 catch
-    println("================================================================")
-    println("Error during Pkg.build(\"PyCall\")... aborting")
-    println("Please start julia and run Pkg.build(\"PyCall\") manually to fix")
-    exit(1)
+    println("=============================================")
+    println("Failing to import PyPlot")
+    println("Installation continues, but please fix later")
 end
 
 

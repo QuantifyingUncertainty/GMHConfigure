@@ -90,6 +90,9 @@ else
     git clone https://github.com/QuantifyingUncertainty/GMHExamples.jl.git
     git clone https://github.com/QuantifyingUncertainty/GMHPhotoReceptor.jl.git
     echo 'push!(LOAD_PATH,"/home/ubuntu/GMHPhotoReceptor.jl")' > .juliarc.jl
+    
+    #Run the tests of the GMHPhotoReceptor.jl package
+    julia -e 'include("/home/ubuntu/GMHPhotoReceptor.jl/test/runtests.jl")'
 
     echo "====================================================="
     echo "Successfully completed $SCRIPTDIR/config.sh"

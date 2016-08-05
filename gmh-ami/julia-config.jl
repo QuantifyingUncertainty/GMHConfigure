@@ -33,6 +33,17 @@ catch
     exit(1)
 end
 
+try
+    ENV["PYTHON"]=""
+    Pkg.build("PyCall")
+catch
+    println("================================================================")
+    println("Error during Pkg.build(\"PyCall\")... aborting")
+    println("Please start julia and run Pkg.build(\"PyCall\") manually to fix")
+    exit(1)
+end
+
+
 ###Test the package
 try
     Pkg.test("GeneralizedMetropolisHastings")

@@ -85,6 +85,11 @@ else
 	mkdir "$HOME/.aws"
         chmod 700 "$HOME/.aws"
     fi
+    
+    #Clone additional git repositories and set Julia search path
+    git clone https://github.com/QuantifyingUncertainty/GMHExamples.jl.git
+    git clone https://github.com/QuantifyingUncertainty/GMHPhotoReceptor.jl.git
+    echo 'push!(LOAD_PATH,"~/GMHPhotoReceptor.jl")' > .juliarc.jl
 
     echo "====================================================="
     echo "Successfully completed $SCRIPTDIR/config.sh"

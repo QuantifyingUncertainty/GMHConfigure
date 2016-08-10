@@ -25,9 +25,10 @@ end
 
 ###Build all packages that require it
 try
-    Pkg.build()
+    ENV["PYTHON"]=""
     Pkg.build("PyCall")
     Pkg.build("PyPlot")
+    Pkg.build()
 catch
     println("================================================================")
     println("Error during Pkg.build()... aborting")
@@ -36,6 +37,7 @@ catch
 end
 
 try
+    using PyCall
     using PyPlot
 catch
     println("=============================================")

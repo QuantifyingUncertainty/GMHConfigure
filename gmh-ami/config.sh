@@ -14,6 +14,7 @@ sudo pip install awscli
 #hdf5-tools is used for loading and saving julia data files
 sudo apt-get -y install build-essential
 sudo apt-get -y install hdf5-tools
+sudo apt-get -y install ipython
 
 #Install julia itself
 sudo apt-get -y install julia

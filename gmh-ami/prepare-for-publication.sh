@@ -13,7 +13,7 @@ select yn in "Yes" "No"; do
             #remove certificates that have been created to access the Jupyter server
             if [ -e ~/.certificates ]; then
                 echo "Removing SSL certificates..."
-                rm -i ~/.cerficates/*
+                rm -i ~/.certificates/*
             fi
 
             #remove Jupyter config files that contain hashed passwords

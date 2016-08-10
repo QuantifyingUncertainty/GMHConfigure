@@ -25,9 +25,9 @@ end
 
 ###Build all packages that require it
 try
-    ENV["PYTHON"]=""
     Pkg.build()
     Pkg.build("PyCall")
+    Pkg.build("PyPlot")
 catch
     println("================================================================")
     println("Error during Pkg.build()... aborting")
@@ -36,7 +36,7 @@ catch
 end
 
 try
-    import PyPlot
+    using PyPlot
 catch
     println("=============================================")
     println("Failing to import PyPlot")

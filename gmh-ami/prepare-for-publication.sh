@@ -11,16 +11,22 @@ select yn in "Yes" "No"; do
     case $yn in
         Yes )
             #remove certificates that have been created to access the Jupyter server
-            echo "Removing SSL certificates..."
-            rm -i ~/.cerficates/*
+            if [ -e ~/.certificates ]; then
+                echo "Removing SSL certificates..."
+                rm -i ~/.cerficates/*
+            fi
 
             #remove Jupyter config files that contain hashed passwords
-            echo "Removing Jupyter configuration files..."
-            rm -i ~/.jupyter/*
+            if [ -e ~/.jupyter ]; then
+                echo "Removing Jupyter configuration files..."
+                rm -i ~/.jupyter/*
+            fi
 
             #remove AWS configuration files
-            echo "Removing AWS configuration files..."
-            rm -i ~/.aws/*
+            if [ -e ~/.aws ]; then
+                echo "Removing AWS configuration files..."
+                rm -i ~/.aws/*
+            fi
 
             #remove GIT configuration file
             if [ -e ~/.gitconfig ]; then
@@ -34,10 +40,13 @@ select yn in "Yes" "No"; do
             sudo find /root/.ssh/authorized_keys -exec rm -f {} \;
             sudo find ~/.ssh/authorized_keys -exec rm -f {} \;
             
-            rm -i ~/.ssh/*.pem
-            rm -i ~/.ssh/config
+            #remove ssh files
+            if [ -e ~/.ssh ]; then
+                echo "Removing SSH files"
+                rm -i ~/.ssh/*
+            fi
 
-            echo "This instance is now ready to be published as a community AMI"
+            echo "This instance is now ready to be published as a Community AMI"
             echo "Please refer to the GMH documentation for further details"
             exit
             ;;

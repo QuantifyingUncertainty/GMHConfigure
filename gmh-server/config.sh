@@ -16,7 +16,8 @@ echo " "
 SCRIPTDIR=$( dirname $0 )
 JUPTEMPLATE=$SCRIPTDIR/jupyter_notebook_config_template.py
 JUPCONFIG=$HOME/.jupyter/jupyter_notebook_config.py
-sed "s/PASSWORDHASH/$(ipython -c 'from notebook.auth import passwd; print(passwd())')/" <$JUPTEMPLATE >$JUPCONFIG
+HASHVALUE=$(ipython -c 'from notebook.auth import passwd; print(passwd())')
+sed "s@PASSWORDHASH@$HASHVALUE@" <$JUPTEMPLATE >$JUPCONFIG
 
 if [ -e $JUPCONFIG ]; then
     echo "Jupyter configuration file successfully created"

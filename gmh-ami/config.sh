@@ -8,7 +8,6 @@ sudo add-apt-repository -y ppa:staticfloat/julia-deps
 sudo apt-get -y update
 sudo apt-get -y install python-pip
 sudo pip install awscli
-sudo pip install "ipython[all]"
 
 #Install packages required by julia
 #build-essential is used to build some of julia's packages

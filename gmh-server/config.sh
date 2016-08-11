@@ -16,7 +16,7 @@ echo " "
 SCRIPTDIR=$( dirname $0 )
 JUPTEMPLATE=$SCRIPTDIR/jupyter_notebook_config_template.py
 JUPCONFIG=$HOME/.jupyter/jupyter_notebook_config.py
-HASHVALUE=$(ipython -c 'from notebook.auth import passwd; print(passwd())')
+HASHVALUE=$( $JUPYTERBIN/ipython -c 'from notebook.auth import passwd; print(passwd())' )
 sed "s@PASSWORDHASH@$HASHVALUE@" <$JUPTEMPLATE >$JUPCONFIG
 
 if [ -e $JUPCONFIG ]; then

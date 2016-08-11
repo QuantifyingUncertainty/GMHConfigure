@@ -12,11 +12,14 @@ echo "Good examples of secure passwords consist of 3 unrelated words"
 echo "For example: apple-spring-saxophone"
 echo " "
 
+#ensure environment variables are defined
+source "$HOME/.profile"
+
 #copy the jupyter notebook config file and store the hashed password into it
 SCRIPTDIR=$( dirname $0 )
 JUPTEMPLATE=$SCRIPTDIR/jupyter_notebook_config_template.py
 JUPCONFIG=$HOME/.jupyter/jupyter_notebook_config.py
-HASHVALUE=$( $JUPYTERBIN/ipython -c 'from notebook.auth import passwd; print(passwd())' )
+HASHVALUE=$( $JUPYTERBIN/ipython -c 'from notebook.auth import passwd; passwd()' | grep sha* )
 sed "s@PASSWORDHASH@$HASHVALUE@" <$JUPTEMPLATE >$JUPCONFIG
 
 if [ -e $JUPCONFIG ]; then

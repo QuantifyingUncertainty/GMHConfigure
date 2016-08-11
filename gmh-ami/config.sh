@@ -51,18 +51,17 @@ else
         exit 1
     fi
     
-    #Test if the PATH variable has the Jupyter bin folder on it
-    echo "$PATH" | grep -q "$JUPYTERBIN"
+    #Test if JUPYTERBIN is defined as environment variable and added to the path
+    grep -q "JUPYTERBIN" "$HOME/.profile"
     if [ $? -eq 1 ]; then
-        PATHSTRING='PATH="$PATH:'
-        PATHSTRING+="$JUPYTERBIN"
-        PATHSTRING+=\"
-        echo $PATHSTRING >> "$HOME/.profile"
+        echo "export JUPYTERBIN=$JUPYTERBIN" >> "$HOME/.profile"
+        echo 'export PATH="$PATH:$JUPYTERBIN"' >> "$HOME/.profile"
     fi
     
+    #make sure the .profile is executed
     source "$HOME/.profile"
 
-    #Test again, if it's not been added to that path, throw an error
+    #Test if JUPYTERBIN is on the path, if it's not been added to that path, throw an error
     echo "$PATH" | grep -q "$JUPYTERBIN"
     if [ $? -eq 1 ]; then
         echo "Adding $JUPYTERBIN to PATH did not produce the required result" 1>&2

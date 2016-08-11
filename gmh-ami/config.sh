@@ -8,13 +8,13 @@ sudo add-apt-repository -y ppa:staticfloat/julia-deps
 sudo apt-get -y update
 sudo apt-get -y install python-pip
 sudo pip install awscli
+sudo pip install "ipython[all]"
 
 #Install packages required by julia
 #build-essential is used to build some of julia's packages
 #hdf5-tools is used for loading and saving julia data files
 sudo apt-get -y install build-essential
 sudo apt-get -y install hdf5-tools
-sudo apt-get -y install ipython
 
 #Install julia itself
 sudo apt-get -y install julia

@@ -8,9 +8,9 @@
 
 ###Use for unregistered package
 try 
-    Pkg.clone("git://github.com/QuantifyingUncertainty/GeneralizedMetropolisHastings.jl")'
+    Pkg.add("GeneralizedMetropolisHastings")'
 catch
-    println("GeneralizedMetropolisHastings already installed... continuing")
+    println("Problem adding or updating GeneralizedMetropolisHastings... continuing to see if it can be fixed")
 end
 
 ###Run an update for all packages
